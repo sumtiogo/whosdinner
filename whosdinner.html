@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Who's dinner</title>
+  </head>
+  <body>
+    <div id="table"></div>
+  </body>
+
+  <script>
+    const friends = [
+      { from: "", to: "", name: "小明", place: 1 },
+      { from: "", to: "", name: "大強", place: 2 },
+      { from: "", to: "", name: "老張", place: 3 },
+      { from: "", to: "", name: "老陳", place: 4 },
+      { from: "", to: "", name: "陳太太", place: 4 },
+      { from: "", to: "", name: "李先生", place: 5 },
+      { from: "", to: "", name: "李麗", place: 5 },
+      { from: "", to: "", name: "Alex", place: 6 },
+      { from: "", to: "", name: "Bob", place: 6 },
+      { from: "", to: "", name: "Catherine", place: 7 },
+      { from: "", to: "", name: "DumDum", place: 7 },
+    ];
+
+    let allServed = false;
+    while (!allServed) {
+      for (const f of friends) {
+        const hungryCandidate = friends.filter(
+          (h) => h.from === "" && h.name !== f.name && h.place !== f.place
+        );
+        const hungryFriend =
+          hungryCandidate[Math.floor(Math.random() * hungryCandidate.length)];
+        if (!hungryFriend) continue;
+        f.to = hungryFriend.name;
+        hungryFriend.from = f.name;
+      }
+      allServed = true;
+    }
+    const table = document.getElementById("table");
+    for (const f of friends) {
+      const line = document.createElement("div");
+      line.textContent = `${f.name} 負責幫 ${f.to} 買晚餐`;
+      table.appendChild(line);
+    }
+  </script>
+</html>
